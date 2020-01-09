@@ -2,7 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { setSearchField, setRequestRobots } from "../redux/actions";
-import MainPage from "../components/MainPage";
+import MainPage from "../components/MainPage.tsx";
+
+// export interface IRobot {
+//   name: string;
+//   id: number;
+//   email: string;
+// }
+
+// interface IAppProps {}
+
+// interface IAppState {
+//   robots: Array<IRobot>;
+//   searchfield: string;
+// }
 
 const App = () => {
   const [filteredRobots, setFilteredRobots] = useState([]);
@@ -18,13 +31,13 @@ const App = () => {
   useEffect(() => dispatch(setRequestRobots()), [dispatch]);
   useEffect(() => {
     setFilteredRobots(
-      robots.filter((robot) =>
+      robots.filter(robot =>
         robot.name.toLowerCase().includes(searchField.toLowerCase())
       )
     );
   }, [robots, searchField]);
 
-  const onSearchChange = (e) => dispatch(setSearchField(e.target.value));
+  const onSearchChange = e => dispatch(setSearchField(e.target.value));
 
   return isPending ? (
     <h1>Loading</h1>
